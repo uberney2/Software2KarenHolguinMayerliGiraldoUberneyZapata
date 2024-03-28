@@ -1,0 +1,25 @@
+{
+  "name": "software2karenholguinmayerligiraldouberneyzapata",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uberney2/Software2KarenHolguinMayerliGiraldoUberneyZapata.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uberney2/Software2KarenHolguinMayerliGiraldoUberneyZapata/issues"
+  },
+  "homepage": "https://github.com/uberney2/Software2KarenHolguinMayerliGiraldoUberneyZapata#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.2.3"
+  }
+}
