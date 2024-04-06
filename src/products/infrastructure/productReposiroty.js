@@ -46,4 +46,14 @@ async function updateProductRepositoryById(productUpdate) {
   }
 }
 
-module.exports = { createProductRepository, getProductRepositoryByName, updateProductRepositoryById, getProductRepositoryById };
+async function deleteProductRepositoryById(idRequest) {
+  
+  try {
+    const deletedProduct = await productModel.findByIdAndDelete(idRequest);
+    return deletedProduct;
+  } catch (error) {
+    return error;
+  }
+}
+
+module.exports = { createProductRepository, getProductRepositoryByName, updateProductRepositoryById, getProductRepositoryById, deleteProductRepositoryById };

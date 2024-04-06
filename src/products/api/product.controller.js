@@ -1,5 +1,6 @@
 const { createProductUseCase } = require("../application/create-product");
 const { updateProductUseCase } = require("../application/update-product");
+const { deleteProductUseCase} = require("../application/delete-product");
 const {
   ExcepcionProductAlreadyExist,
 } = require("../exceptions/productAlreadyExist");
@@ -31,4 +32,16 @@ async function updateProduct(req, res) {
   }
 }
 
-module.exports = { saveProducts, updateProduct };
+async function deleteProduct(req, res) {
+  try {
+    const deletedProduct = await deleteProductUseCase(req.params.id);
+    return res.status(201).json({ product: deletedProduct });
+  } catch (error) {
+    if (error instanceof ProductNotFound) {
+      return res.status(404).send({ error: error.message });
+    }
+    return res.status(500).json({ message: error });
+  }
+}
+
+module.exports = { saveProducts, updateProduct, deleteProduct };
