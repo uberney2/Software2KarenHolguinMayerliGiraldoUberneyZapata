@@ -18,7 +18,6 @@ async function createProductRepository(productRequest){
     } catch (error) {
         return error;
     }
-    
 }
 
 module.exports = {createProductRepository}
