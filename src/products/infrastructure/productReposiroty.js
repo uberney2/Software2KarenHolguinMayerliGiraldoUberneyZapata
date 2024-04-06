@@ -18,6 +18,15 @@ async function createProductRepository(productRequest) {
   }
 }
 
+async function getProductRepositoryById(id) {
+  try {
+    const product = await productModel.findById(id);
+    return product;
+  } catch (error) {
+    return error;
+  }
+}
+
 async function getProductRepositoryByName(name){
   try {
     const product = await productModel.findOne({ name: name });
@@ -27,4 +36,14 @@ async function getProductRepositoryByName(name){
   }
 }
 
-module.exports = { createProductRepository, getProductRepositoryByName };
+async function updateProductRepositoryById(productUpdate) {
+  try {
+    productUpdate.updatedAt = Date.now();
+    const updatedProduct = await productModel.findByIdAndUpdate(productUpdate.id, productUpdate, { new: true });
+    return updatedProduct;
+  } catch (error) {
+    return error;
+  }
+}
+
+module.exports = { createProductRepository, getProductRepositoryByName, updateProductRepositoryById, getProductRepositoryById };
