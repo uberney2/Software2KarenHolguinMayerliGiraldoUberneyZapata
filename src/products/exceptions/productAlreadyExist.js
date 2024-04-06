@@ -4,4 +4,4 @@ class ExcepcionProductAlreadyExist extends Error{
     }
 }
 
-module.exports = ExcepcionProductAlreadyExist;
+module.exports = {ExcepcionProductAlreadyExist};

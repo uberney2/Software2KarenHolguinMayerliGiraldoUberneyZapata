@@ -1,10 +1,10 @@
 const {createProductRepository, getProductRepositoryByName} = require('../infrastructure/productReposiroty')
+const {ExcepcionProductAlreadyExist} = require('../exceptions/productAlreadyExist')
 
-async function createProductUseCase(product){
-    const productName = await getProductRepositoryByName(product.name);
-    if(productName){
-        console.log(productName)
-        return;
+async function createProductUseCase(productRequest){
+    const product = await getProductRepositoryByName(productRequest.name);
+    if(product){
+        throw new ExcepcionProductAlreadyExist(productRequest.name)
     }
     return await createProductRepository(product);
 }
