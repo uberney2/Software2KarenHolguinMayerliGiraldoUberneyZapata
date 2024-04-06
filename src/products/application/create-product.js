@@ -6,7 +6,7 @@ async function createProductUseCase(productRequest){
     if(product){
         throw new ExcepcionProductAlreadyExist(productRequest.name)
     }
-    return await createProductRepository(product);
+    return await createProductRepository(productRequest);
 }
 
 module.exports = {createProductUseCase}
