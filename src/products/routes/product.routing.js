@@ -1,7 +1,7 @@
 taskRouter = require("express").Router();
-const {saveProducts, getProducts} = require('../api/product.controller')
+const {saveProducts, updateProduct} = require('../api/product.controller')
 
 taskRouter.post('/saveProduct', saveProducts);
-taskRouter.get('/get', getProducts);
+taskRouter.put('/updateProduct', updateProduct);
 
 module.exports = taskRouter;
