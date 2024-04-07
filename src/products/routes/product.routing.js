@@ -4,5 +4,6 @@ const {saveProducts, updateProduct, deleteProduct} = require('../api/product.con
 taskRouter.post('/saveProduct', saveProducts);
 taskRouter.put('/updateProduct', updateProduct);
 taskRouter.delete('/deleteProduct/:id', deleteProduct);
+taskRouter.get('/searchProducts', searchProducts);
 
 module.exports = taskRouter;

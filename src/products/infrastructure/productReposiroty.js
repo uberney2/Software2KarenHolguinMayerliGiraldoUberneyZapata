@@ -17,7 +17,7 @@ async function createProductRepository(productRequest) {
     return error;
   }
 }
-
+/*
 async function getProductRepositoryById(id) {
   try {
     const product = await productModel.findById(id);
@@ -33,6 +33,30 @@ async function getProductRepositoryByName(name){
     return product;
   } catch (error) {
     return error;
+  }
+}*/
+
+async function getProductByCriteria(criteria) {
+  try {
+    const query = {};
+
+    if (criteria.name) {
+      query.name = criteria.name;
+    }
+    if (criteria.category) {
+      query.category = criteria.category;
+    }
+    if (criteria.tags && criteria.tags.length > 0) {
+      query.tags = { $all: criteria.tags };
+    }
+    if (criteria.rate) {
+      query.rating = criteria.rate;
+    }
+    
+    const products = await productModel.find(query);
+    return products;
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -56,4 +80,4 @@ async function deleteProductRepositoryById(idRequest) {
   }
 }
 
-module.exports = { createProductRepository, getProductRepositoryByName, updateProductRepositoryById, getProductRepositoryById, deleteProductRepositoryById };
+module.exports = { createProductRepository, getProductByCriteria, updateProductRepositoryById, getProductRepositoryById, deleteProductRepositoryById };
