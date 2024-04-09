@@ -1,6 +1,7 @@
 userRouter = require("express").Router();
-const {singUp} = require('../api/user.controller')
+const {singUp, login} = require('../api/user.controller')
 
 userRouter.post('/singUp', singUp);
+userRouter.post('/logIn', login);
 
 module.exports = userRouter;

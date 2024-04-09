@@ -1,5 +1,6 @@
 const { userModel } = require("./user.model");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 async function createUserRepository(userRequest) {
   try {
@@ -17,11 +18,11 @@ async function createUserRepository(userRequest) {
     const newUser = await user.save();
     return newUser;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
-async function getUserRepositoryByUserName(userName){
+async function getUserRepositoryByUserName(userName) {
   try {
     const user = await userModel.findOne({ userName: userName });
     return user;
@@ -30,4 +31,25 @@ async function getUserRepositoryByUserName(userName){
   }
 }
 
-module.exports = {createUserRepository, getUserRepositoryByUserName}
+async function authUser(credentials) {
+  try {
+    const { userName, password } = credentials;
+    const user = await userModel.findOne({ userName });
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return false;
+    }
+    const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
+      expiresIn: '1h',
+    });
+    return token
+  } catch (error) {
+    return error;
+  }
+}
+
+module.exports = {
+  createUserRepository,
+  getUserRepositoryByUserName,
+  authUser,
+};
