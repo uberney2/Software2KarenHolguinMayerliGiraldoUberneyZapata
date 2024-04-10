@@ -1,7 +1,7 @@
 const { createProductUseCase } = require("../application/create-product");
 const { updateProductUseCase } = require("../application/update-product");
 const { deleteProductUseCase} = require("../application/delete-product");
-const {searchProductByCriteria} = require("../application/search-product")
+const {searchProductByCriteriaUseCase} = require("../application/search-product")
 const {
   ExcepcionProductAlreadyExist,
 } = require("../exceptions/productAlreadyExist");
@@ -44,10 +44,10 @@ async function deleteProduct(req, res) {
     return res.status(500).json({ message: error });
   }
 }
-async function searchProducts(req, res) {
+async function searchProduct(req, res) {
   try {
     const { category, name, tags, rate } = req.query;
-    const products = await searchProductByCriteria({ category, name, tags, rate });
+    const products = await searchProductByCriteriaUseCase({ category, name, tags, rate });
     
     return res.status(200).json({ products });
   } catch (error) {
@@ -55,4 +55,4 @@ async function searchProducts(req, res) {
   }
 }
 
-module.exports = { saveProducts, updateProduct, deleteProduct, searchProducts };
+module.exports = { saveProducts, updateProduct, deleteProduct, searchProduct };

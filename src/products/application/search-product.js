@@ -1,9 +1,9 @@
-const { getProductByCriteria } = require('../infrastructure/productReposiroty');
+const { getProductRepositoryByCriteria } = require('../infrastructure/productReposiroty');
 const { ProductNotFound } = require('../exceptions/productNotFound');
 
-async function searchProductByCriteria(criteria) {
+async function searchProductByCriteriaUseCase(criteria) {
     try {
-        const products = await getProductByCriteria(criteria);
+        const products = await getProductRepositoryByCriteria(criteria);
         
         if (!products || products.length === 0) {
             throw new ProductNotFound('No products found with the given criteria.');
@@ -15,4 +15,4 @@ async function searchProductByCriteria(criteria) {
     }
 }
 
-module.exports = { searchProductByCriteria };
+module.exports = { searchProductByCriteriaUseCase };

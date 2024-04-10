@@ -26,7 +26,7 @@ async function getProductRepositoryById(id) {
     return error;
   }
 }
-/*
+
 async function getProductRepositoryByName(name){
   try {
     const product = await productModel.findOne({ name: name });
@@ -34,9 +34,9 @@ async function getProductRepositoryByName(name){
   } catch (error) {
     return error;
   }
-}*/
+}
 
-async function getProductByCriteria(criteria) {
+async function getProductRepositoryByCriteria(criteria) {
   try {
     const query = {};
 
@@ -80,4 +80,5 @@ async function deleteProductRepositoryById(idRequest) {
   }
 }
 
-module.exports = { createProductRepository, getProductByCriteria, updateProductRepositoryById, getProductRepositoryById, deleteProductRepositoryById };
+module.exports = { createProductRepository, getProductRepositoryByCriteria, updateProductRepositoryById, getProductRepositoryById, 
+  deleteProductRepositoryById };
