@@ -1,8 +1,8 @@
 const { createCommentRepository } = require("../infrastructure/commentRepository")
 //ExcepcionCommentNotFound
 
-async function addComment(commentRequest) {
+async function addCommentUseCase(commentRequest) {
     return await createCommentRepository(commentRequest);
 }
 
-module.exports = { addComment }
+module.exports = { addCommentUseCase }
