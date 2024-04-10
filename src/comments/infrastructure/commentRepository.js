@@ -6,6 +6,7 @@ async function createCommentRepository(commentRequest) {
             productId: commentRequest.productId,
             userId: commentRequest.userId,
             content: commentRequest.comment,
+            rate: commentRequest.rate,
             createdAt: commentRequest.createdAt,
             updatedAt: commentRequest.updatedAt,
         });
