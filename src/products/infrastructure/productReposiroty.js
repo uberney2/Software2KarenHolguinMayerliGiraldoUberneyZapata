@@ -17,7 +17,7 @@ async function createProductRepository(productRequest) {
     return error;
   }
 }
-/*
+
 async function getProductRepositoryById(id) {
   try {
     const product = await productModel.findById(id);
@@ -26,7 +26,7 @@ async function getProductRepositoryById(id) {
     return error;
   }
 }
-
+/*
 async function getProductRepositoryByName(name){
   try {
     const product = await productModel.findOne({ name: name });
