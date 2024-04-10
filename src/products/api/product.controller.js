@@ -44,4 +44,24 @@ async function deleteProduct(req, res) {
   }
 }
 
-module.exports = { saveProducts, updateProduct, deleteProduct };
+async function getProductDetails(req, res) {
+  try {
+    const productId = req.params.id;
+    const product = await getProductRepositoryById(productId);
+    
+    if (!product) {
+      throw new ProductNotFound(productId);
+    }
+
+    return res.status(200).json({ product });
+  } catch (error) {
+    if (error instanceof ProductNotFound) {
+      return res.status(404).send({ error: error.message });
+    }
+    return res.status(500).json({ message: error });
+  }
+}
+
+
+module.exports = { saveProducts, updateProduct, deleteProduct, getProductDetails };
+ 
