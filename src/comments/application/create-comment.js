@@ -1,6 +1,6 @@
 const { createCommentRepository, getCommentRepositoryByProductId, getCommentRepositoryByUserId } = require('../infrastructure/commentRepository');
 const { ExcepcionUserNotFound } = require('../exceptions/userNotFound');
-const { productNotFound } = require('../../products/exceptions/productNotFound');
+const { ProductNotFound } = require('../../products/exceptions/productNotFound');
 
 async function addCommentUseCase(commentRequest) {
 
@@ -8,7 +8,7 @@ async function addCommentUseCase(commentRequest) {
 
     if (!productId) {
 
-        throw new productNotFound(`Product with ID ${productId} not found`);
+        throw new ProductNotFound(`Product with ID ${productId} not found`);
     }
 
     const userId = await getCommentRepositoryByUserId(commentRequest.userId);
