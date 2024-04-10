@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
   },
 
   rate: {
-    type: String,
+    type: Number,
   },
 
   category: {
