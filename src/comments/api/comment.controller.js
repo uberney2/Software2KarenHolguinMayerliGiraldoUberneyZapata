@@ -27,7 +27,7 @@ async function createComment(req, res) {
 async function getAvgRating(req, res) {
     try {
 
-        const getAvgRating = await getAvgRatingByProductIdUseCase(req.body);
+        const getAvgRating = await getAvgRatingByProductIdUseCase(req.params.productId);
         return res.status(200).json({ average: getAvgRating });
 
     } catch (error) {
