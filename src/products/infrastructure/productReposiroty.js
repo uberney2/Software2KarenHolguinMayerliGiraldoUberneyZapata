@@ -36,6 +36,30 @@ async function getProductRepositoryByName(name){
   }
 }
 
+async function getProductRepositoryByCriteria(criteria) {
+  try {
+    const query = {};
+
+    if (criteria.name) {
+      query.name = criteria.name;
+    }
+    if (criteria.category) {
+      query.category = criteria.category;
+    }
+    if (criteria.tags && criteria.tags.length > 0) {
+      query.tags = { $all: criteria.tags };
+    }
+    if (criteria.rate) {
+      query.rating = criteria.rate;
+    }
+    
+    const products = await productModel.find(query);
+    return products;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function updateProductRepositoryById(productUpdate) {
   try {
     productUpdate.updatedAt = Date.now();
@@ -56,4 +80,5 @@ async function deleteProductRepositoryById(idRequest) {
   }
 }
 
-module.exports = { createProductRepository, getProductRepositoryByName, updateProductRepositoryById, getProductRepositoryById, deleteProductRepositoryById };
+module.exports = { createProductRepository, getProductRepositoryByCriteria, updateProductRepositoryById, getProductRepositoryById, 
+  deleteProductRepositoryById };
