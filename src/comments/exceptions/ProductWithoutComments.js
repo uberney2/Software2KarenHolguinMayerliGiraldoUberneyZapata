@@ -1,9 +1,9 @@
-class ExcepcionProductWithoutComments extends Error{
+class ExcepcionProductWithoutComments extends Error {
 
-    constructor(productId){
-        
+    constructor(productId) {
+
         super(`product with id: ${productId} has no comments`)
     }
 }
 
-module.exports = {ExcepcionProductWithoutComments};
+module.exports = { ExcepcionProductWithoutComments };
