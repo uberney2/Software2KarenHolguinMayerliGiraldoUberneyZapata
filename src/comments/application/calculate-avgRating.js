@@ -5,10 +5,9 @@ async function getAvgRatingByProductIdUseCase(productId) {
 
     const comment = await getCommentRepositoryByProductId(productId);
 
-    if (!productId) {
+    if (!comment || comment.length == 0) {
 
         throw new ExcepcionProductWithoutComments(productId);
-
     }
 
     const totalRating = comment.reduce((acc, comment) => acc + comment.rate, 0);
