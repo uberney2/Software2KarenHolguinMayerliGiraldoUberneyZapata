@@ -6,7 +6,7 @@ async function searchProductByCriteriaUseCase(criteria) {
         const products = await getProductRepositoryByCriteria(criteria);
         
         if (!products || products.length === 0) {
-            throw new ProductNotFound('No products found with the given criteria.');
+            throw new ProductNotFound(criteria.id); 
         }
         
         return products;
