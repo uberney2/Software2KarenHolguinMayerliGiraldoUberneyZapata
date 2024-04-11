@@ -8,14 +8,14 @@ async function addCommentUseCase(commentRequest) {
 
     if (!productId) {
 
-        throw new ProductNotFound(`Product with ID ${productId} not found`);
+        throw new ProductNotFound(commentRequest.productId);
     }
 
     const userId = await getCommentRepositoryByUserId(commentRequest.userId);
 
     if (!userId) {
 
-        throw new ExcepcionUserNotFound(`User with ID ${userId} not found`);
+        throw new ExcepcionUserNotFound(commentRequest.userId);
     }
 
     return await createCommentRepository(commentRequest);

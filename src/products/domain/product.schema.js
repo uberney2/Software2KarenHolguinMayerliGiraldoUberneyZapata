@@ -10,6 +10,14 @@ const productSchema = new mongoose.Schema({
     type: String,
   },
 
+  rate: {
+    type: Number,
+  },
+
+  category: {
+    type: String,
+  },
+
   url: {
     type: String,
   },
