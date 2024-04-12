@@ -81,4 +81,4 @@ async function deleteProductRepositoryById(idRequest) {
 }
 
 module.exports = { createProductRepository, getProductRepositoryByCriteria, updateProductRepositoryById, getProductRepositoryById, 
-  deleteProductRepositoryById };
+  deleteProductRepositoryById, getProductRepositoryByName };
