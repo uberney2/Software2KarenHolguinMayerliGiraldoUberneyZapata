@@ -1,5 +1,5 @@
 const { productModel } = require("./product");
-const { getCommentRepositoryByProductId } = require('../../comments/infrastructure/')
+const { getCommentRepositoryByProductId } = require('../../comments/infrastructure/commentRepository')
 
 async function createProductRepository(productRequest) {
   try {
@@ -96,5 +96,5 @@ async function getProductDetailRepository(productId) {
 
 module.exports = {
   createProductRepository, getProductRepositoryByCriteria, updateProductRepositoryById, getProductRepositoryById,
-  deleteProductRepositoryById, getProductDetailRepository
+  deleteProductRepositoryById, getProductDetailRepository, getProductRepositoryByName
 };
