@@ -58,7 +58,6 @@ async function searchProduct(req, res) {
 
 async function getProductDetails(req, res) {
   try {
-
     const productDetails = await getProductDetaislUseCase(req.params.id);
     return res.status(200).json({ product: productDetails });
   } catch (error) {

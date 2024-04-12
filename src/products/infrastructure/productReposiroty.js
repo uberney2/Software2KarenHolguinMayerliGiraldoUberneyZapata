@@ -83,7 +83,7 @@ async function deleteProductRepositoryById(idRequest) {
 
 async function getProductDetailRepository(productId) {
   try {
-    const detailProduct = await productModel.findById(id);
+    const detailProduct = await productModel.findById(productId);
     const commentsProduct = await getCommentRepositoryByProductId(productId);
     return {
       detailProduct,
