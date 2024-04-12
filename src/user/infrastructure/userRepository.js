@@ -39,7 +39,7 @@ async function authUser(credentials) {
     if (!passwordMatch) {
       return false;
     }
-    const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
+    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
       expiresIn: '1h',
     });
     return token
