@@ -1,4 +1,5 @@
 const { productModel } = require("./product");
+const { getCommentRepositoryByProductId } = require('../../comments/infrastructure/')
 
 async function createProductRepository(productRequest) {
   try {
@@ -27,7 +28,7 @@ async function getProductRepositoryById(id) {
   }
 }
 
-async function getProductRepositoryByName(name){
+async function getProductRepositoryByName(name) {
   try {
     const product = await productModel.findOne({ name: name });
     return product;
@@ -52,7 +53,7 @@ async function getProductRepositoryByCriteria(criteria) {
     if (criteria.rate) {
       query.rating = criteria.rate;
     }
-    
+
     const products = await productModel.find(query);
     return products;
   } catch (error) {
@@ -71,7 +72,7 @@ async function updateProductRepositoryById(productUpdate) {
 }
 
 async function deleteProductRepositoryById(idRequest) {
-  
+
   try {
     const deletedProduct = await productModel.findByIdAndDelete(idRequest);
     return deletedProduct;
@@ -80,5 +81,20 @@ async function deleteProductRepositoryById(idRequest) {
   }
 }
 
-module.exports = { createProductRepository, getProductRepositoryByCriteria, updateProductRepositoryById, getProductRepositoryById, 
-  deleteProductRepositoryById };
+async function getProductDetailRepository(productId) {
+  try {
+    const detailProduct = await productModel.findById(id);
+    const commentsProduct = await getCommentRepositoryByProductId(productId);
+    return {
+      detailProduct,
+      commentsProduct
+    };
+  } catch (error) {
+    return error;
+  }
+}
+
+module.exports = {
+  createProductRepository, getProductRepositoryByCriteria, updateProductRepositoryById, getProductRepositoryById,
+  deleteProductRepositoryById, getProductDetailRepository
+};
