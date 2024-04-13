@@ -1,6 +1,7 @@
 taskRouter = require("express").Router();
 const {saveProducts, updateProduct, deleteProduct, getProductDetails,searchProduct} = require('../api/product.controller')
 const verifyToken = require('../../middleware/authMiddleware');
+const validateProductFields= require('../../middleware/createProductValidationMeddleware')
 
 /**
  * @swagger
@@ -53,7 +54,7 @@ const verifyToken = require('../../middleware/authMiddleware');
  *       '400':
  *         description: Error al guardar el producto
  */
-taskRouter.post('/saveProduct',verifyToken, saveProducts);
+taskRouter.post('/saveProduct',verifyToken,validateProductFields, saveProducts);
 
 /**
  * @swagger
