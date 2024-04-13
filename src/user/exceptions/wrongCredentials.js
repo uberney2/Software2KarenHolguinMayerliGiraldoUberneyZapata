@@ -1,6 +1,6 @@
 class ExcepcionWrongCredentials extends Error{
     constructor(){
-        uper(`WRONG CREDENTIALS`)
+        super(`WRONG CREDENTIALS`)
     }
 }
 
