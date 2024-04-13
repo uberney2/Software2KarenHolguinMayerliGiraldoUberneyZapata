@@ -23,10 +23,10 @@ async function login(req, res) {
     const token = await authUserUseCase(req.body);
     return res.status(201).json({ token: token });
   } catch (error) {
-    if (error instanceof ExcepcionUserParameterAlreadyExist) {
+    if (error instanceof ExcepcionUserNameNotFound) {
       return res.status(400).send({ error: error.message });
     }
-    if (error instanceof ExcepcionUserParameterAlreadyExist) {
+    if (error instanceof ExcepcionWrongCredentials) {
       return res.status(400).send({ error: error.message });
     }
     return res.status(500).json({ message: error });
