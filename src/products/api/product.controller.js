@@ -58,10 +58,18 @@ async function searchProduct(req, res) {
 
 async function getProductDetails(req, res) {
   try {
+
     const productDetails = await getProductDetaislUseCase(req.params.id);
     return res.status(200).json({ product: productDetails });
+
   } catch (error) {
+
+    if (error instanceof ProductNotFound) {
+      return res.status(404).json({ message: error.message });
+    }
+
     return res.status(500).json({ message: error });
+
   }
 }
 
