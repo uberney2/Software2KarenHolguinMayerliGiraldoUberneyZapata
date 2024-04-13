@@ -2,7 +2,7 @@ const { addCommentUseCase } = require('../application/create-comment');
 const { getAvgRatingByProductIdUseCase } = require('../application/calculate-avgRating');
 const { ExcepcionUserNotFound } = require('../exceptions/userNotFound');
 const { ExcepcionProductWithoutComments } = require('../exceptions/ProductWithoutComments');
-const { productNotFound } = require('../../products/exceptions/productNotFound');
+const { ProductNotFound } = require('../../products/exceptions/productNotFound');
 
 async function createComment(req, res) {
     try {
@@ -12,7 +12,7 @@ async function createComment(req, res) {
 
     } catch (error) {
 
-        if (error instanceof productNotFound) {
+        if (error instanceof ProductNotFound) {
             return res.status(404).json({ message: error.message });
         }
 
@@ -32,7 +32,7 @@ async function getAvgRating(req, res) {
 
     } catch (error) {
 
-        if (error instanceof productNotFound) {
+        if (error instanceof ProductNotFound) {
             return res.status(404).json({ message: error.message });
         }
 
