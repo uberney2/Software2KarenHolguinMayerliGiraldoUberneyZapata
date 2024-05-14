@@ -1,29 +1,32 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const commentSchema = new mongoose.Schema({
-    productId: {
-        type: Object,
-    },
+  productId: { 
+    type: Schema.Types.ObjectId, 
+    ref: "Product" 
+},
 
-    userId: {
-        type: Object,
-    },
+  userId: { 
+    type: Schema.Types.ObjectId, 
+    ref: "User" 
+},
 
-    content: {
-        type: String,
-    },
+  content: {
+    type: String,
+  },
 
-    rate: {
-        type: Number,
-    },
+  rate: {
+    type: Number,
+  },
 
-    createdAt: {
-        type: Date,
-    },
+  createdAt: {
+    type: Date,
+  },
 
-    updatedAt: {
-        type: Date,
-    },
+  updatedAt: {
+    type: Date,
+  },
 });
 
-module.exports = { commentSchema, };
+module.exports = { commentSchema };
