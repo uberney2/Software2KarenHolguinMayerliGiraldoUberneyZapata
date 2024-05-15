@@ -11,6 +11,7 @@ async function createProductRepository(productRequest) {
       description: productRequest.description,
       url: productRequest.url,
       tags: productRequest.tags,
+      image: productRequest.image,
       createdAt: productRequest.createdAt,
       updatedAt: productRequest.updatedAt,
     });
