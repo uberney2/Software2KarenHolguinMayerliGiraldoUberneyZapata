@@ -1,5 +1,8 @@
 const { productModel } = require("./product");
-const { getCommentRepositoryByProductId } = require('../../comments/infrastructure/commentRepository')
+const {
+  getCommentRepositoryByProductId,
+} = require("../../comments/infrastructure/commentRepository");
+const { commentModel } = require("../../comments/infrastructure/comment.model");
 
 async function createProductRepository(productRequest) {
   try {
@@ -64,7 +67,11 @@ async function getProductRepositoryByCriteria(criteria) {
 async function updateProductRepositoryById(productUpdate) {
   try {
     productUpdate.updatedAt = Date.now();
-    const updatedProduct = await productModel.findByIdAndUpdate(productUpdate.id, productUpdate, { new: true });
+    const updatedProduct = await productModel.findByIdAndUpdate(
+      productUpdate.id,
+      productUpdate,
+      { new: true }
+    );
     return updatedProduct;
   } catch (error) {
     return error;
@@ -72,7 +79,6 @@ async function updateProductRepositoryById(productUpdate) {
 }
 
 async function deleteProductRepositoryById(idRequest) {
-
   try {
     const deletedProduct = await productModel.findByIdAndDelete(idRequest);
     return deletedProduct;
@@ -84,10 +90,13 @@ async function deleteProductRepositoryById(idRequest) {
 async function getProductDetailRepository(productId) {
   try {
     const detailProduct = await productModel.findById(productId);
-    const commentsProduct = await getCommentRepositoryByProductId(productId);
+    const commentsProduct = await commentModel.find({ productId: detailProduct.id })
+    .populate("userId", "userName email avatar bio") // Solo incluye algunos campos del usuario
+      .exec();
+      console.log(commentsProduct)
     return {
       detailProduct,
-      commentsProduct
+      commentsProduct,
     };
   } catch (error) {
     return error;
@@ -95,6 +104,11 @@ async function getProductDetailRepository(productId) {
 }
 
 module.exports = {
-  createProductRepository, getProductRepositoryByCriteria, updateProductRepositoryById, getProductRepositoryById,
-  deleteProductRepositoryById, getProductDetailRepository, getProductRepositoryByName
+  createProductRepository,
+  getProductRepositoryByCriteria,
+  updateProductRepositoryById,
+  getProductRepositoryById,
+  deleteProductRepositoryById,
+  getProductDetailRepository,
+  getProductRepositoryByName,
 };
