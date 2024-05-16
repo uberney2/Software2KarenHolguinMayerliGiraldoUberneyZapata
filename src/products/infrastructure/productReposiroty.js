@@ -3,10 +3,12 @@ const {
   getCommentRepositoryByProductId,
 } = require("../../comments/infrastructure/commentRepository");
 const { commentModel } = require("../../comments/infrastructure/comment.model");
+const { FollowModel } = require('../../follows/infrastructure/follow.model')
 
 async function createProductRepository(productRequest) {
   try {
     const product = new productModel({
+      userId: productRequest.userId,
       name: productRequest.name,
       description: productRequest.description,
       url: productRequest.url,
@@ -91,13 +93,23 @@ async function getProductDetailRepository(productId) {
   try {
     const detailProduct = await productModel.findById(productId);
     const commentsProduct = await commentModel.find({ productId: detailProduct.id })
-    .populate("userId", "userName email avatar bio") // Solo incluye algunos campos del usuario
+      .populate("userId", "userName email avatar bio") // Solo incluye algunos campos del usuario
       .exec();
-      console.log(commentsProduct)
+    console.log(commentsProduct)
     return {
       detailProduct,
       commentsProduct,
     };
+  } catch (error) {
+    return error;
+  }
+}
+
+
+async function getProductRepositoryByUserId(userId) {
+  try {
+    const product = await productModel.find({ userId: userId });
+    return product;
   } catch (error) {
     return error;
   }
@@ -111,4 +123,6 @@ module.exports = {
   deleteProductRepositoryById,
   getProductDetailRepository,
   getProductRepositoryByName,
+  getProductRepositoryByUserId
 };
+

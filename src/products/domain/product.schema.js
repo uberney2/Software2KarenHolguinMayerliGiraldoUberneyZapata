@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const productSchema = new mongoose.Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
+  
   name: {
     type: String,
     unique: true
@@ -22,7 +28,7 @@ const productSchema = new mongoose.Schema({
     type: String,
   },
 
-  image:{
+  image: {
     type: String
   },
 

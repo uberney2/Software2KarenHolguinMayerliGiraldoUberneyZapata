@@ -3,6 +3,8 @@ const { updateProductUseCase } = require("../application/update-product");
 const { deleteProductUseCase } = require("../application/delete-product");
 const { searchProductByCriteriaUseCase } = require("../application/search-product");
 const { getProductDetaislUseCase } = require('../application/detail-product');
+const { getProductsByFollowersUseCase } = require('../application/followers-products');
+const jwt = require('jsonwebtoken');
 const {
   ExcepcionProductAlreadyExist,
 } = require("../exceptions/productAlreadyExist");
@@ -59,9 +61,9 @@ async function searchProduct(req, res) {
 async function getProductDetails(req, res) {
   try {
 
-    
+
     const productDetails = await getProductDetaislUseCase(req.params.id);
-    
+
     return res.status(200).json({ product: productDetails });
 
   } catch (error) {
@@ -75,6 +77,27 @@ async function getProductDetails(req, res) {
   }
 }
 
+async function productByFollowers(req, res) {
+  try {
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    const userId = decodedToken.userId;
+    
+    const searchProduct = {
+      name: req.query.name,
+      category: req.query.category,
+      tags: req.query.tags,
+      rate: req.query.rate
+    };
 
-module.exports = { saveProducts, updateProduct, deleteProduct, getProductDetails, searchProduct };
+    const products = await getProductsByFollowersUseCase(userId, searchProduct);
+    return res.status(200).json({ products });
+
+  } catch (error) {
+    return res.status(500).json({ message: 'Error getting products from followers' });
+  }
+}
+
+
+module.exports = { saveProducts, updateProduct, deleteProduct, getProductDetails, searchProduct, productByFollowers };
 
