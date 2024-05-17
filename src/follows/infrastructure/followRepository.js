@@ -32,8 +32,22 @@ async function getFollowingsRepository(userId) {
   }
 }
 
+async function unfollowUser(userId, followedUserId) {
+  try {
+    const result = await FollowModel.findOneAndDelete({
+      userId: userId,
+      followedUserId: followedUserId
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 module.exports = {
   followUser,
   getFollowersRepository,
-  getFollowingsRepository
+  getFollowingsRepository,
+  unfollowUser
 };

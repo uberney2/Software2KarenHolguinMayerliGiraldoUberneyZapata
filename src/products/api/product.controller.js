@@ -51,7 +51,8 @@ async function deleteProduct(req, res) {
 async function searchProduct(req, res) {
   try {
     const { category, name, tags, rate } = req.query;
-    const products = await searchProductByCriteriaUseCase({ category, name, tags, rate });
+    const tagsArray = tags ? tags.split(',') : [];
+    const products = await searchProductByCriteriaUseCase({ category, name, tags: tagsArray, rate });
 
     return res.status(200).json({ products });
   } catch (error) {
