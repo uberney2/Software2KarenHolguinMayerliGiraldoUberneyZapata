@@ -1,4 +1,4 @@
-const { followUser, getFollowersRepository, getFollowingsRepository } = require('../infrastructure/followRepository');
+const { followUser, getFollowersRepository, getFollowingsRepository, unfollowUser } = require('../infrastructure/followRepository');
 
 async function followUserUseCase(userId, followedUserId) {
   try {
@@ -28,8 +28,18 @@ async function getFollowingsUseCase(userId) {
   }
 }
 
+async function unfollowUseCase(userId, unFollowedUserId){
+  try {
+    const unFollow = await unfollowUser(userId, unFollowedUserId);
+    return unFollow;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   followUserUseCase,
   getFollowersUseCase,
-  getFollowingsUseCase
+  getFollowingsUseCase,
+  unfollowUseCase
 };
