@@ -115,6 +115,22 @@ async function getProductRepositoryByUserId(userId) {
   }
 }
 
+async function getProductRepositoryByDate(startDate, endDate) {
+  try {
+
+    const product = await productModel.find({
+      createdAt: {
+        $gte: startDate,
+        $lte: endDate,
+      },
+    });
+    return product;
+
+  } catch (error) {
+    return error;
+  }
+}
+
 module.exports = {
   createProductRepository,
   getProductRepositoryByCriteria,
@@ -123,6 +139,7 @@ module.exports = {
   deleteProductRepositoryById,
   getProductDetailRepository,
   getProductRepositoryByName,
-  getProductRepositoryByUserId
+  getProductRepositoryByUserId,
+  getProductRepositoryByDate
 };
 

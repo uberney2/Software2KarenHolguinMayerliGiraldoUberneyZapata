@@ -4,6 +4,7 @@ const { deleteProductUseCase } = require("../application/delete-product");
 const { searchProductByCriteriaUseCase } = require("../application/search-product");
 const { getProductDetaislUseCase } = require('../application/detail-product');
 const { getProductsByFollowersUseCase } = require('../application/followers-products');
+const { getProductByDateUseCase } = require('../application/search-date');
 const jwt = require('jsonwebtoken');
 const {
   ExcepcionProductAlreadyExist,
@@ -82,7 +83,7 @@ async function productByFollowers(req, res) {
     const token = req.headers.authorization;
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = decodedToken.userId;
-    
+
     const searchProduct = {
       name: req.query.name,
       category: req.query.category,
@@ -98,6 +99,24 @@ async function productByFollowers(req, res) {
   }
 }
 
+async function getProductsByDate(req, res) {
+  try {
+    const { startDate, endDate } = req.body;
 
-module.exports = { saveProducts, updateProduct, deleteProduct, getProductDetails, searchProduct, productByFollowers };
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      return res.status(400).json({ message: "Invalid date format" });
+    }
+
+    const product = await getProductByDateUseCase(start, end);
+    return res.status(200).json({ product })
+
+  } catch (error) {
+    return res.status(500).json({ message: 'Error getting products by date range', error: error.message });
+  }
+}
+
+module.exports = { saveProducts, updateProduct, deleteProduct, getProductDetails, searchProduct, productByFollowers, getProductsByDate };
 
