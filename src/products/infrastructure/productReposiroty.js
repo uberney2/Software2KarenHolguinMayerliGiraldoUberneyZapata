@@ -46,7 +46,7 @@ async function getProductRepositoryByCriteria(criteria) {
     const query = {};
 
     if (criteria.name) {
-      query.name = criteria.name;
+      query.name = new RegExp(criteria.name, 'i')
     }
     if (criteria.category) {
       query.category = criteria.category;
@@ -55,7 +55,7 @@ async function getProductRepositoryByCriteria(criteria) {
       query.tags = { $all: criteria.tags };
     }
     if (criteria.rate) {
-      query.rating = criteria.rate;
+      query.rate = criteria.rate;
     }
 
     const products = await productModel.find(query);
