@@ -20,8 +20,8 @@ async function singUp(req, res) {
 
 async function login(req, res) {
   try {
-    const userWithToken = await authUserUseCase(req.body);
-    return res.status(201).json({ userInfo: userWithToken });
+    const token = await authUserUseCase(req.body);
+    return res.status(201).json({ token: token });
   } catch (error) {
     if (error instanceof ExcepcionUserNameNotFound) {
       return res.status(400).send({ error: error.message });
