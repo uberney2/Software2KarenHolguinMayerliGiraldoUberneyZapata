@@ -19,7 +19,7 @@ async function authUserUseCase(credentials) {
     throw new ExcepcionWrongCredentials();
   }
 
-  return token;
+  return {user: user, token: token};
 }
 
 

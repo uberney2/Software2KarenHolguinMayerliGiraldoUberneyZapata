@@ -1,7 +1,7 @@
 taskRouter = require("express").Router();
-const {saveProducts, updateProduct, deleteProduct, getProductDetails,searchProduct} = require('../api/product.controller')
+const { saveProducts, updateProduct, deleteProduct, getProductDetails, searchProduct, productByFollowers, getProductsByDate } = require('../api/product.controller')
 const verifyToken = require('../../middleware/authMiddleware');
-const validateProductFields= require('../../middleware/createProductValidationMeddleware')
+const validateProductFields = require('../../middleware/createProductValidationMeddleware')
 
 /**
  * @swagger
@@ -54,7 +54,7 @@ const validateProductFields= require('../../middleware/createProductValidationMe
  *       '400':
  *         description: Error al guardar el producto
  */
-taskRouter.post('/saveProduct',verifyToken,validateProductFields, saveProducts);
+taskRouter.post('/saveProduct', verifyToken, validateProductFields, saveProducts);
 
 /**
  * @swagger
@@ -121,7 +121,7 @@ taskRouter.put('/updateProduct', verifyToken, updateProduct);
  *       '400':
  *         description: Error al eliminar el producto
  */
-taskRouter.delete('/deleteProduct/:id',verifyToken, deleteProduct);
+taskRouter.delete('/deleteProduct/:id', verifyToken, deleteProduct);
 
 /**
  * @swagger
@@ -144,7 +144,7 @@ taskRouter.delete('/deleteProduct/:id',verifyToken, deleteProduct);
  *       '404':
  *         description: Producto no encontrado
  */
-taskRouter.get('/productDetails/:id',verifyToken, getProductDetails);
+taskRouter.get('/productDetails/:id', verifyToken, getProductDetails);
 
 /**
  * @swagger
@@ -183,6 +183,10 @@ taskRouter.get('/productDetails/:id',verifyToken, getProductDetails);
  *       '404':
  *         description: No se encontraron productos que coincidan con los criterios de búsqueda
  */
-taskRouter.get('/searchProduct',verifyToken, searchProduct);
+taskRouter.get('/searchProduct', verifyToken, searchProduct);
+
+taskRouter.get('/followers/products', productByFollowers);
+
+taskRouter.get('/ByDate', verifyToken, getProductsByDate);   
 
 module.exports = taskRouter;
