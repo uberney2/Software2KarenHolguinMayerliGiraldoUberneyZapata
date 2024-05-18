@@ -1,5 +1,5 @@
 taskRouter = require("express").Router();
-const { saveProducts, updateProduct, deleteProduct, getProductDetails, searchProduct, productByFollowers, getProductsByDate } = require('../api/product.controller')
+const { saveProducts, updateProduct, deleteProduct, getProductDetails, searchProduct, productByFollowers, getProductsByDate, getProductByUserId } = require('../api/product.controller')
 const verifyToken = require('../../middleware/authMiddleware');
 const validateProductFields = require('../../middleware/createProductValidationMeddleware')
 
@@ -188,5 +188,7 @@ taskRouter.get('/searchProduct', verifyToken, searchProduct);
 taskRouter.get('/followers/products', productByFollowers);
 
 taskRouter.get('/ByDate', verifyToken, getProductsByDate);   
+
+taskRouter.get('/searchProduct/:id', verifyToken, getProductByUserId);  
 
 module.exports = taskRouter;
