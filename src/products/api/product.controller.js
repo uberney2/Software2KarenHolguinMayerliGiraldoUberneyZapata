@@ -5,6 +5,7 @@ const { searchProductByCriteriaUseCase } = require("../application/search-produc
 const { getProductDetaislUseCase } = require('../application/detail-product');
 const { getProductsByFollowersUseCase } = require('../application/followers-products');
 const { getProductByDateUseCase } = require('../application/search-date');
+const {searchByUserIdUseCase} = require('../application/search-byUserId')
 const jwt = require('jsonwebtoken');
 const {
   ExcepcionProductAlreadyExist,
@@ -119,5 +120,14 @@ async function getProductsByDate(req, res) {
   }
 }
 
-module.exports = { saveProducts, updateProduct, deleteProduct, getProductDetails, searchProduct, productByFollowers, getProductsByDate };
+async function getProductByUserId(req, res){
+  try {
+    const products = await searchByUserIdUseCase(req.params.id);
+    return res.status(200).json({ products });
+  } catch (error) {
+    return res.status(500).json({ message: 'Error getting products by user id', error: error.message });
+  }
+}
+
+module.exports = { saveProducts, updateProduct, deleteProduct, getProductDetails, searchProduct, productByFollowers, getProductsByDate, getProductByUserId };
 
