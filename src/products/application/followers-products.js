@@ -1,10 +1,10 @@
 const { getProductRepositoryByUserId, getProductRepositoryByCriteria } = require('../infrastructure/productReposiroty');
-const { getFollowersRepository } = require('../../follows/infrastructure/followRepository');
+const { getFollowingsRepository } = require('../../follows/infrastructure/followRepository');
 
 async function getProductsByFollowersUseCase(userId, searchProduct) {
     try {
 
-        const followerIds = await getFollowersRepository(userId);
+        const followerIds = await getFollowingsRepository(userId);
 
         let products = [];
 
@@ -18,7 +18,7 @@ async function getProductsByFollowersUseCase(userId, searchProduct) {
         }
 
         products = products.filter(product => followerIds.some(follower => follower._id.equals(product.userId)));
-
+        console.log(products)
         return products;
     } catch (error) {
         return error;

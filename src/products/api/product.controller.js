@@ -97,7 +97,7 @@ async function productByFollowers(req, res) {
     return res.status(200).json({ products });
 
   } catch (error) {
-    return res.status(500).json({ message: 'Error getting products from followers' });
+    return res.status(500).json({ message: error });
   }
 }
 
