@@ -185,10 +185,174 @@ taskRouter.get('/productDetails/:id', verifyToken, getProductDetails);
  */
 taskRouter.get('/searchProduct', verifyToken, searchProduct);
 
+/**
+ * @swagger
+ * /followers/products:
+ *   get:
+ *     summary: Get products followed by users
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         required: true
+ *         description: ID of the user whose followers' products are to be retrieved
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved products followed by users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   user:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       name:
+ *                         type: string
+ *                       products:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             productId:
+ *                               type: string
+ *                             name:
+ *                               type: string
+ *                             description:
+ *                               type: string
+ *                             rate:
+ *                               type: number
+ *                             category:
+ *                               type: string
+ *                             url:
+ *                               type: string
+ *                             image:
+ *                               type: string
+ *                             tags:
+ *                               type: array
+ *                               items:
+ *                                 type: string
+ *       '400':
+ *         description: Error while retrieving products by followers
+ *       '500':
+ *         description: Error while processing the request
+ */
 taskRouter.get('/followers/products', productByFollowers);
 
-taskRouter.get('/ByDate', verifyToken, getProductsByDate);   
+/**
+ * @swagger
+ * /ByDate:
+ *   get:
+ *     summary: Get products by date range
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         required: true
+ *         description: Start date of the date range
+ *         schema:
+ *           type: string
+ *           format: date
+ *       - in: query
+ *         name: endDate
+ *         required: true
+ *         description: End date of the date range
+ *         schema:
+ *           type: string
+ *           format: date
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved products by date range
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   productId:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *                   description:
+ *                     type: string
+ *                   rate:
+ *                     type: number
+ *                   category:
+ *                     type: string
+ *                   url:
+ *                     type: string
+ *                   image:
+ *                     type: string
+ *                   tags:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *       '400':
+ *         description: Error while retrieving products by date
+ *       '500':
+ *         description: Error while processing the request
+ */
+taskRouter.get('/ByDate', verifyToken, getProductsByDate);
 
-taskRouter.get('/searchProduct/:id', verifyToken, getProductByUserId);  
+/**
+ * @swagger
+ * /searchProduct/{id}:
+ *   get:
+ *     summary: Search products by user ID
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the user whose products are to be searched
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved products by user ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   productId:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *                   description:
+ *                     type: string
+ *                   rate:
+ *                     type: number
+ *                   category:
+ *                     type: string
+ *                   url:
+ *                     type: string
+ *                   image:
+ *                     type: string
+ *                   tags:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *       '404':
+ *         description: User not found or no products found for the user
+ *       '500':
+ *         description: Error while processing the request
+ */
+taskRouter.get('/searchProduct/:id', verifyToken, getProductByUserId);
 
 module.exports = taskRouter;
