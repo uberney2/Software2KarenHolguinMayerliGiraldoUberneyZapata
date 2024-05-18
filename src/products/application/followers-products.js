@@ -1,28 +1,28 @@
 const { getProductRepositoryByUserId, getProductRepositoryByCriteria } = require('../infrastructure/productReposiroty');
-const { getFollowersRepository } = require('../../follows/infrastructure/followRepository');
+const { getFollowingsRepository } = require('../../follows/infrastructure/followRepository');
 
 async function getProductsByFollowersUseCase(userId, searchProduct) {
     try {
-
-        const followerIds = await getFollowersRepository(userId);
-
-        let products = [];
-
-        if (searchProduct) {
-            products = await getProductRepositoryByCriteria(searchProduct);
-        } else {
-            products = await Promise.all(followerIds.map(async (followerId) => {
-                return await getProductRepositoryByUserId(followerId._id);
-            }));
-            products = products.flat();
-        }
-
-        products = products.filter(product => followerIds.some(follower => follower._id.equals(product.userId)));
-
-        return products;
+      const followers = await getFollowingsRepository(userId);
+  
+      let followerProducts = await Promise.all(followers.map(async (follower) => {
+        const products = searchProduct && Object.keys(searchProduct).some(key => searchProduct[key])
+          ? await getProductRepositoryByCriteria({ ...searchProduct, userId: follower.followedUserId._id })
+          : await getProductRepositoryByUserId(follower.followedUserId._id);
+        
+        return {
+          user: {
+            id: follower.followedUserId._id,
+            name: follower.followedUserId.userName,
+            products: products
+          }
+        };
+      }));
+  
+      return followerProducts;
     } catch (error) {
-        return error;
+      throw new Error('Error getting products by followers');
     }
-}
+  }
 
 module.exports = { getProductsByFollowersUseCase };
